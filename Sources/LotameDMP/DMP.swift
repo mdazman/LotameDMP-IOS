@@ -116,11 +116,16 @@ open class DMP:NSObject{
     /**
     Tracking is enabled only if advertising id is enabled on the user's device
     */
-    public static var trackingEnabled: Bool{
-        if #available(iOS 14.5, *) {
-           return ATTrackingManager.trackingAuthorizationStatus == .authorized
-        }
-        return ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+    public static var trackingEnabled: Bool {
+        #if os(iOS)
+            if #available(iOS 14.5, *) {
+                return ATTrackingManager.trackingAuthorizationStatus == .authorized
+            }
+        #elseif os(tvOS)
+            if #available(tvOS 14.0, *) {
+                return ATTrackingManager.trackingAuthorizationStatus == .authorized
+            }
+        #endif
     }
     
     /**
