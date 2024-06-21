@@ -126,6 +126,7 @@ open class DMP:NSObject{
                 return ATTrackingManager.trackingAuthorizationStatus == .authorized
             }
         #endif
+        return false
     }
     
     /**
